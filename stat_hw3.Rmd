@@ -1,0 +1,28 @@
+---
+title: "Prob Stats Homework 3"
+output: html_notebook
+---
+#Problem
+Example 7.14 Assume that in a digital communication channel, the number of bits received in error can be modeled
+by a binomial random variable, and assume that the probability that a bit is received in error is
+1 × 10 − 5 . If 16 million bits are transmitted, what is the probability that 150 or fewer errors occur?
+Let the random variable X denote the number of errors. Then X is a binomial random variable and
+$$
+\begin{equation*}
+P(X\leq150)   = \sum_{x=0}^{150}{16000000 \choose x} (10^{-5})^x (1-10^{-5})^{ 16000000-x}
+\end{equation*}
+$$
+Practical Interpretation: Clearly, this probability is difficult to compute. Fortunately, the normal distribution can be
+used to provide an excellent approximation in this example.
+#Solution
+Calculate the probability by using loop
+dbinom is R builtin function for compute binomial distribution
+```{r}
+sum <- 0
+p <- 0.00001
+
+for (i in 0:150){
+   sum <- sum + dbinom(i,size = 16000000,p)
+}
+print(sum)
+```
